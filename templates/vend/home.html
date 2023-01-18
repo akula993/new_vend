@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+Адресса Аппаратов
+{% endblock %}
+{% block content %}
+{% for item in address %}
+    <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+        <ol>
+    {% for i in item.device.all %}
+        <li>    <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>
+</li>
+    {% endfor %}
+        </ol>
+
+{% endfor %}
+
+{% endblock %}

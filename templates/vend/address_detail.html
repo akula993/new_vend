@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ address.name }}
+{% endblock %}
+
+{% block content %}
+    {{ address.name }}<br>
+    {% for device in address.device.all %}
+        <a href="{{ device.get_absolute_url }}">{{ device.name }}</a>
+    {% endfor %}
+
+    {#    <p>{{ address.created_at }}</p>#}
+{% endblock %}

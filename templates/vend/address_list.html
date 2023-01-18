@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}
+Адресса Аппаратов
+{% endblock %}
+{% block content %}
+{% for addres in address %}
+    <a href="{{ addres.get_absolute_url }}">{{ addres.name }}</a>
+{% endfor %}
+
+{% endblock %}
