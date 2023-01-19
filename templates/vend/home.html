@@ -1,17 +1,42 @@
 {% extends 'base.html' %}
 {% block title %}
-Адресса Аппаратов
+    Адресса Аппаратов
 {% endblock %}
 {% block content %}
-{% for item in address %}
-    <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
-        <ol>
-    {% for i in item.device.all %}
-        <li>    <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>
-</li>
-    {% endfor %}
-        </ol>
 
-{% endfor %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Адресс</th>
+            <th scope="col">Аппараты</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in address %}
 
+            <tr>
+                <th scope="row"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></th>
+
+                <td>
+                    {#            <ol>#}
+                    {% for i in item.device.all %}
+                        <li>
+                            {#                    <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>#}
+                            <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>
+                        </li>
+                    {% endfor %}
+                    {#            </ol>#}
+                </td>
+
+                <td>{{ item.get_sum_all }}</td>
+                <td>@fat</td>
+            </tr>
+
+
+        {% endfor %}
+
+        </tbody>
+    </table>
 {% endblock %}

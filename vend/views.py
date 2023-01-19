@@ -32,6 +32,8 @@ class AddressDetail(DetailView):
     # slug_field = 'device'
     slug_url_kwarg = 'address'
 
+
+
 class DeviceDetail(DetailView):
     model = Device
     template_name = 'vend/device_detail.html'
@@ -43,3 +45,8 @@ class DeviceDetail(DetailView):
     #     q = super().get_queryset()
     #     return q.filter(address=address).select_related('device')
     #     # return q.filter(category__slug=category).select_related('address')
+
+    # def get_queryset(self):
+    #     address = self.kwargs.get('address_id', '')
+    #     q = super().get_queryset()
+    #     return q.filter(address__slug=address).select_related('address')
