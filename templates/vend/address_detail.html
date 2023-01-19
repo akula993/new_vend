@@ -9,5 +9,25 @@
         <a href="{{ device.get_absolute_url }}">{{ device.name }}</a>
     {% endfor %}
 
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Адресс</th>
+            <th scope="col">Аппараты</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for device in address.device.all %}
+            <tr>
+                <th scope="row"><a href="{{ device.get_absolute_url }}">{{ device.name }}</a></th>
+
+                <td>{{ item.to_rent }}</td>
+                <td>@fat</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     {#    <p>{{ address.created_at }}</p>#}
 {% endblock %}

@@ -22,33 +22,10 @@ class Address(models.Model):
     def get_absolute_url(self):
         return reverse('address_detail', kwargs={'address': self.slug})
 
-    def get_sum_all(self):
-        address_sum = Address.objects.get(name=self.name)
-        device_sum = address_sum.device.all()
-
-        def item(aa=0, *args):
-            sum_number = []
-
-            for i in args:
-                for a in i:
-                    for s in a:
-                        sum_number.append(s.number)
-
-            return sum(sum_number)
-
-        if device_sum and not None:
-
-            sum_number_list = []
-            for dev_sum in device_sum:
-                current_datetime = timezone.now()
-                list_date = dev_sum.sensor_set.filter(month__year=current_datetime.year,
-                                                      month__month=current_datetime.month)
-                sum_number_list.append(list_date)
-            sum_number = item(0, sum_number_list) * 10
-
-        else:
-            sum_number = 0
-        return sum_number
+    def get_sum(self):
+        sum_number = Device.objects.aggregate(total_price=Count('counter'))['total_price']
+        n = sum_number * 10
+        return n
 
 
 class Device(models.Model):
