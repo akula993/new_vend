@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
@@ -31,7 +32,6 @@ class AddressDetail(DetailView):
     template_name = 'vend/address_detail.html'
     # slug_field = 'device'
     slug_url_kwarg = 'address'
-
 
 
 class DeviceDetail(DetailView):

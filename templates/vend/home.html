@@ -9,8 +9,8 @@
         <tr>
             <th scope="col">Адресс</th>
             <th scope="col">Аппараты</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Цена аренды</th>
+            <th scope="col">Дата оплаты</th>
         </tr>
         </thead>
         <tbody>
@@ -20,20 +20,21 @@
                 <th scope="row"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></th>
 
                 <td>
-                    {#            <ol>#}
+                                <ol style="margin: 0; padding: 0;">
                     {% for i in item.device.all %}
                         <li>
                             {#                    <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>#}
                             <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>
                         </li>
                     {% endfor %}
-                    {#            </ol>#}
+                                </ol>
                 </td>
 
                 <td>{{ item.to_rent }}</td>
-                <td>@fat</td>
+                <td>{{ item.publish }}</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
 {% endblock %}

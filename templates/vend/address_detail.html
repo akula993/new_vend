@@ -24,6 +24,7 @@
                 <th scope="row"><a href="{{ device.get_absolute_url }}">{{ device.name }}</a></th>
 
                 <td>{{ item.to_rent }}</td>
+                <td>{{ item.get_gum }}</td>
                 <td>@fat</td>
             </tr>
         {% endfor %}
