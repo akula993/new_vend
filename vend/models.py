@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.urls import reverse
 from django.utils import timezone
 
@@ -50,11 +50,11 @@ class Device(models.Model):
     def get_sum(self):
         device_sum = Device.objects.get(name=self.name)
         try:
-            last, pre_last = device_sum.sensor_set.order_by('-month')[:2]
+            last, pre_last = device_sum.sensor.order_by('-month')[:2]
             sum_number = (last.number - pre_last.number) * 10
         except ValueError:
             try:
-                last, pre_last = device_sum.sensor_set.last(), 0
+                last, pre_last = device_sum.sensor.last(), 0
                 sum_number = (last.number) * 10
             except AttributeError:
                 sum_number = 0
@@ -63,11 +63,11 @@ class Device(models.Model):
     def get_sum_win(self):
         device_sum = Device.objects.get(name=self.name)
         try:
-            last, pre_last = device_sum.sensor_win_set.order_by('-month')[:2]
+            last, pre_last = device_sum.sensor_win.order_by('-month')[:2]
             sum_number = (last.number - pre_last.number)
         except ValueError:
             try:
-                last, pre_last = device_sum.sensor_win_set.last(), 0
+                last, pre_last = device_sum.sensor_win.last(), 0
                 sum_number = (last.number)
             except AttributeError:
                 sum_number = 0
@@ -76,13 +76,50 @@ class Device(models.Model):
     def get_sell(self):
         device_sum = Device.objects.get(name=self.name)
         try:
-            last, pre_last = device_sum.sensor_set.order_by('-month')[:2]
+            last, pre_last = device_sum.sensor.order_by('-month')[:2]
             sum = (last.number - pre_last.number) * 10
         except ValueError:
             try:
-                last, pre_last = device_sum.sensor_set.last(), 0
+                last, pre_last = device_sum.sensor.last(), 0
                 sum = (last.number) * 10
             except AttributeError:
                 sum = 0
         sum_number = sum - self.address.to_rent
         return sum_number
+
+
+class Sensor(models.Model):
+    device = models.ForeignKey(Device, on_delete=models.PROTECT, related_name='sensor')
+    month = models.DateTimeField('Дата снятия счетчика', auto_now_add=True)
+    number = models.IntegerField(verbose_name='Счетчик', default=0)
+
+    def get_sum(self):
+        sum_number = Device.objects.aggregate(total_price=Count('counter'))['total_price']
+        n = sum_number * 10
+        return n
+
+    def multiply(self):
+        return self.number * 10
+
+    def __str__(self):
+        return f'{self.device.address} | {self.device.name}'
+
+    # def get_absolute_url(self):
+    #     return reverse('home', kwargs={'id': self.id})
+
+    class Meta:
+        verbose_name = 'Счетчик игр'
+        verbose_name_plural = 'Счетчики игры'
+
+
+class SensorWin(models.Model):
+    device = models.ForeignKey(Device, on_delete=models.PROTECT, related_name='sensor_win')
+    month = models.DateTimeField('Дата снятия счетчика', default=timezone.now())
+    number = models.IntegerField(verbose_name='Счетчик', default=0)
+
+    def __str__(self):
+        return f'{self.device.address} | {self.device.name}'
+
+    class Meta:
+        verbose_name = 'Счетчик выигрыша'
+        verbose_name_plural = 'Счетчики выигрышей'

@@ -1,9 +1,36 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
-{#{{ address.name }}#}
+   {{ device.name }}
 {% endblock %}
 
 {% block content %}
     {{ device.name }}
-{#    <p>{{ address.created_at }}</p>#}
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    data: [
+                        {% for i in device.sensor.all %}
+                            {x: '{{ i.month|date:'d M Y' }}', y: '{{i.number}}'},
+                        {% endfor %}
+                    ]
+                },
+                    {
+                    data: [
+                        {% for i in device.sensor_win.all %}
+                            {x: '{{ i.month|date:'d M Y' }}', y: '{{i.number}}'},
+                        {% endfor %}
+                    ]
+                }]
+            }
+        });
+    </script>
+
 {% endblock %}

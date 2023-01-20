@@ -3,7 +3,6 @@
     Адресса Аппаратов
 {% endblock %}
 {% block content %}
-
     <table class="table">
         <thead>
         <tr>
@@ -15,26 +14,22 @@
         </thead>
         <tbody>
         {% for item in address %}
-
             <tr>
                 <th scope="row"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></th>
-
                 <td>
-                                <ol style="margin: 0; padding: 0;">
-                    {% for i in item.device.all %}
-                        <li>
-                            {#                    <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>#}
-                            <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>
-                        </li>
-                    {% endfor %}
-                                </ol>
+                    <ol style="margin: 0; padding: 0;">
+                        {% for i in item.device.all %}
+                            <li>
+                                {#                    <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>#}
+                                <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ol>
                 </td>
-
                 <td>{{ item.to_rent }}</td>
                 <td>{{ item.publish }}</td>
             </tr>
         {% endfor %}
-
         </tbody>
     </table>
 {% endblock %}
