@@ -5,6 +5,7 @@ from vend.models import Address, Device, Sensor, SensorWin
 
 class DeviceInline(admin.TabularInline):
     model = Device
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class SensorInline(admin.StackedInline):

@@ -4,34 +4,140 @@
 {% endblock %}
 
 {% block content %}
-    {{ address.name }}<br>
-    {% for device in address.device.all %}
-        <a href="{{ device.get_absolute_url }}">{{ device.name }}</a>
-    {% endfor %}
+{#    {{ address.name }}<br>#}
+{#    {% for device in address.device.all %}#}
+{#        <a href="{{ device.get_absolute_url }}">{{ device.name }}</a>#}
+{#    {% endfor %}#}
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Адресс</th>
-            <th scope="col">Аппараты</th>
-            <th scope="col">Счетчик игр</th>
-            <th scope="col">Handle</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for device in address.device.all %}
-            <tr>
-                <th scope="row"><a href="{{ device.get_absolute_url }}">{{ address.name }}</a></th>
-
-                <td><a href="{{ device.get_absolute_url }}">{{ device.name }}</a></td>
-                {% for foo in device.sensor.all %}
-                {% endfor %}
-
-                <td>{{ device.get_sum }}</td>
-                <td>{{ device.get_sum_win }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{#    <table class="table">#}
+{#        <thead>#}
+{#        <tr>#}
+{#            <th scope="col">Адресс</th>#}
+{#            <th scope="col">Аппараты</th>#}
+{#            <th scope="col">Счетчик игр</th>#}
+{#            <th scope="col">Handle</th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for device in address.device.all %}#}
+{#            <tr>#}
+{#                <th scope="row"><a href="{{ device.get_absolute_url }}">{{ address.name }}</a></th>#}
+{##}
+{#                <td><a href="{{ device.get_absolute_url }}">{{ device.name }}</a></td>#}
+{#                {% for foo in device.sensor.all %}#}
+{#                {% endfor %}#}
+{##}
+{#                <td>{{ device.get_sum }}</td>#}
+{#                <td>{{ device.get_sum_win }}</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
     {#    <p>{{ address.created_at }}</p>#}
+
+    <!-- start page content wrapper-->
+    <div class="page-content-wrapper">
+        <!-- start page content-->
+        <div class="page-content">
+                <div class="card radius-10 w-100">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <h6 class="mb-0">Recent Orders</h6>
+                        <div class="fs-5 ms-auto dropdown">
+                            <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
+                                 data-bs-toggle="dropdown"><i
+                                    class="bi bi-three-dots"></i></div>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="table-responsive mt-2">
+                        <table class="table align-middle mb-0">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Аппарат</th>
+                                <th>Прибыль</th>
+                                <th>Кол-во аппаратов</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for device in address.device.all %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="product-box border">
+                                                <img src="https://via.placeholder.com/110X110/212529/fff" alt="">
+                                            </div>
+                                            <div class="product-info">
+                                                <a href="{{ device.get_absolute_url }}"><h6
+                                                        class="product-name mb-1">{{ device.name }}</h6></a>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    {#            <tr>#}
+                                    {#                <th scope="row"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></th>#}
+                                    {#                <td>#}
+                                    {#                    <ol style="margin: 0; padding: 0;">#}
+                                    {#                        {% for i in item.device.all %}#}
+                                    {#                            <li>#}
+                                    {#                    <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>#}
+                                    {#                                <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>#}
+                                    {#                            </li>#}
+                                    {#                        {% endfor %}#}
+                                    {#                    </ol>#}
+                                    {#                </td>#}
+                                    {#                <td>{{ item.to_rent }}</td>#}
+                                    {#                <td>{{ item.publish }}</td>#}
+                                    {#            </tr>#}
+
+{#                {% for foo in device.sensor.all %}#}
+{#                {% endfor %}#}
+{##}
+{#                <td>{{ device.get_sum }}</td>#}
+{#                <td>{{ device.get_sum_win }}</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+                                <td>{{ device.get_sum }}</td>
+                                <td class="text-center"><span class="badge alert-dark">{{ device.get_sum_win }}</span></td>
+                                <td>{{ device.created_at|date:'d M Y'}}</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3 fs-6">
+                                        <a class="text-dark" data-bs-toggle="tooltip"
+                                           data-bs-placement="bottom"
+                                           title="" data-bs-original-title="View detail" aria-label="Views">
+                                            <ion-icon name="eye-sharp"></ion-icon>
+                                        </a>
+                                        <a class="text-dark" data-bs-toggle="tooltip"
+                                           data-bs-placement="bottom"
+                                           title="" data-bs-original-title="Edit info" aria-label="Edit">
+                                            <ion-icon name="pencil-sharp"></ion-icon>
+                                        </a>
+                                        <a class="text-dark" data-bs-toggle="tooltip"
+                                           data-bs-placement="bottom"
+                                           title="" data-bs-original-title="Delete" aria-label="Delete">
+                                            <ion-icon name="trash-sharp"></ion-icon>
+                                        </a>
+                                    </div>
+                                </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end page content-->
+    </div>
+    <!--end page content wrapper-->
 {% endblock %}

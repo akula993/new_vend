@@ -41,7 +41,7 @@ class Device(models.Model):
         verbose_name_plural = 'Аппараты'
 
     def __str__(self):
-        return self.name
+        return f'{self.address.name} -=- {self.name}'
 
     def get_absolute_url(self):
         a = Address.objects.all()
