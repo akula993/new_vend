@@ -25,7 +25,7 @@ class HomeList(ListView):
     model = Address
     template_name = 'vend/home.html'
     context_object_name = 'address'
-
+    extra_context = {'title': 'Главная страница'}
 
 class AddressDetail(DetailView):
     model = Address
@@ -37,6 +37,7 @@ class AddressDetail(DetailView):
 class DeviceDetail(DetailView):
     model = Device
     template_name = 'vend/device_detail.html'
+
     # slug_field = 'device'
     # slug_url_kwarg = 'device'
     # def get_slug_field(self):
