@@ -641,7 +641,7 @@
                                  data-bs-toggle="dropdown"><i
                                     class="bi bi-three-dots"></i></div>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Добавить адрес</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -692,28 +692,38 @@
                                     {#                <td>{{ item.publish }}</td>#}
                                     {#            </tr>#}
 
-                                <td>{{ item.to_rent }}</td>
-                                <td class="text-center"><span class="badge alert-dark">{{ item.device.count }}</span></td>
-                                <td>{{ item.publish|date:'d M Y'}}</td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3 fs-6">
-                                        <a class="text-dark" data-bs-toggle="tooltip"
-                                           data-bs-placement="bottom"
-                                           title="" data-bs-original-title="View detail" aria-label="Views">
-                                            <ion-icon name="eye-sharp"></ion-icon>
-                                        </a>
-                                        <a class="text-dark" data-bs-toggle="tooltip"
-                                           data-bs-placement="bottom"
-                                           title="" data-bs-original-title="Edit info" aria-label="Edit">
-                                            <ion-icon name="pencil-sharp"></ion-icon>
-                                        </a>
-                                        <a class="text-dark" data-bs-toggle="tooltip"
-                                           data-bs-placement="bottom"
-                                           title="" data-bs-original-title="Delete" aria-label="Delete">
-                                            <ion-icon name="trash-sharp"></ion-icon>
-                                        </a>
-                                    </div>
-                                </td>
+                                    <td>{{ item.to_rent }}</td>
+                                    <td class="text-center"><span
+                                            class="badge alert-dark">{{ item.device.count }}</span></td>
+                                    <td>{{ item.publish|date:'d M Y' }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3 fs-6">
+
+
+                                            <a class="text-dark" data-bs-toggle="tooltip"
+                                               data-bs-placement="bottom"
+
+                                               title="" data-bs-original-title="
+                                                    {% for device in item.device.all %}{{ device.name }} {% endfor %}"
+                                               aria-label="Views">
+
+                                                <ion-icon name="eye-sharp"></ion-icon>
+                                            </a>
+                                            <a class="text-dark" data-bs-toggle="tooltip"
+                                               data-bs-placement="bottom" href="{% url 'address_update' item.pk %}"
+                                               title="" data-bs-original-title="Edit info" aria-label="Edit">
+                                                <ion-icon name="pencil-sharp"></ion-icon>
+                                                <script>
+
+                                                </script>
+                                            </a>
+                                            {#                                        <a class="text-dark" data-bs-toggle="tooltip"#}
+                                            {#                                           data-bs-placement="bottom"#}
+                                            {#                                           title="" data-bs-original-title="Delete" aria-label="Delete">#}
+                                            {#                                            <ion-icon name="trash-sharp"></ion-icon>#}
+                                            {#                                        </a>#}
+                                        </div>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>

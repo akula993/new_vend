@@ -1,6 +1,8 @@
+from django.contrib import messages
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
 from vend.models import Address, Device
 
@@ -27,11 +29,30 @@ class HomeList(ListView):
     context_object_name = 'address'
     extra_context = {'title': 'Главная страница'}
 
+
 class AddressDetail(DetailView):
     model = Address
     template_name = 'vend/address_detail.html'
     # slug_field = 'device'
     slug_url_kwarg = 'address'
+
+# AddressCreate
+
+class AddressCreate(CreateView): # новое изменение
+    model = Address
+    template_name = 'vend/address_new.html'
+    fields = ['name', 'slug', 'to_rent', 'publish']
+
+
+class AddressUpdate(UpdateView):
+    model = Address
+    fields = ['name', 'to_rent']
+    success_url = reverse_lazy('/')
+    template_name = 'vend/address_update.html'
+    context_object_name = 'address'
+    def form_valid(self, form):
+        messages.success(self.request, 'The task was updated successfully.')
+        return super(AddressUpdate, self).form_valid(form)
 
 
 class DeviceDetail(DetailView):
