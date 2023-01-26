@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 
+from vend.forms import AddressForm
 from vend.models import Address, Device
 
 
@@ -41,7 +42,8 @@ class AddressDetail(DetailView):
 class AddressCreate(CreateView): # новое изменение
     model = Address
     template_name = 'vend/address_new.html'
-    fields = ['name', 'slug', 'to_rent', 'publish']
+    # fields = ['name', 'slug', 'to_rent', 'publish']
+    form_class = AddressForm
 
 
 class AddressUpdate(UpdateView):
